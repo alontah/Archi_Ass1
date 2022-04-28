@@ -18,24 +18,42 @@ convertor:
 
 	; your code comes here...
 	mov edx, 0 ;counter for distance from beginning of string
-	mov ebx, 0 ;accumulator
 loop:
-  mov al, byte [ecx+edx] ;get current byte
-	cmp  eax, '\n'
+  mov eax, byte [ecx+edx] ;get current byte
+	cmp byte eax, '\n'
 	je loop ; if enter, ignore it
-	cmp  eax, 0
+	cmp byte eax, 0
 	je end
-	cmp  eax, 'q'
+	cmp byte eax, 'q'
 	call exit ; os call exit
-	sub al, '0' ; set current char to int
-	shl eax, 3*edx
-	add ebx, eax
-	; blablalblalblabla
+	sub eax, '0' ; set current char to int
+	sar eax
+	adc ebx, 0
+	add ebx, '0'
+	mov [outstring+edx*3]  ;append ebx to output string
+	sar eax
+	adc ebx, 0
+	add ebx, '0'
+	mov [outstring+edx*3+1]  ;append ebx to output string
+	sar eax
+	adc ebx, 0
+	add ebx, '0'
+	mov [outstring+edx*3+2]  ;append ebx to output string
 	inc edx
 	jmp loop
 
 
+
+
+
+	;idea save string to memory
+	;iterate over chars with register;
+	;if char == 'q' exit;
+	;foreach char do - '0'
+	;shift right 3 times and concat CF to output string;
+
 end:
+	mov [outstring+edx*3], '0'  ;append ebx to output string
 
 	push an			; call printf with 2 arguments -
 	push format_string	; pointer to str and pointer to format string
