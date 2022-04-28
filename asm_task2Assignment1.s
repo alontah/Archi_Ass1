@@ -30,6 +30,7 @@ loop:
 	sub al, '0' ; set current char to int
 	shl eax, 3*edx
 	add ebx, eax
+	; blablalblalblabla
 	inc edx
 	jmp loop
 
