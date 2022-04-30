@@ -4,7 +4,7 @@ section	.rodata			; we define (global) read-only variables in .rodata section
 section .text
 	global assFunc
 	extern printf
-  extern c_checkValidity
+    extern c_checkValidity
 
 assFunc:
 	push ebp
@@ -31,7 +31,7 @@ times_8:
 
 
 
-	; store value in register
+    ; store value in register
   ; call checkValidity
   ; if 1 print value * 4
   ; else print value * 8
@@ -44,8 +44,8 @@ after_cases:
 	push format_string	; pointer to int and pointer to format string
 	call printf
 
-	add esp, 8		; clean up stack after call
-	;TODO ask why popad causes segmentation falue
+	add esp, 12		; clean up stack after call
+
 	popad
 	mov esp, ebp
 	pop ebp

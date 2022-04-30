@@ -5,11 +5,13 @@
 					/* enough to get 32-bit string + '\n' + null terminator */
 extern void assFunc(int buf);
 
+
+
 int main(int argc, char** argv)
 {
   char buf[MAX_LEN];
 
-  fgets(buf, MAX_LEN, stdin);		/* get user input string */
+  fgets(buf, MAX_LEN, stdin);/* get user input string */
   assFunc(atoi(buf));			/* call your assembly function */
   return 0;
 }
