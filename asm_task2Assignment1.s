@@ -16,14 +16,15 @@ convertor:
 	mov ecx, dword [ebp+8]	; get function argument (pointer to string)
 
 
-	mov edx, 0 ;counter for distance from beginning of string
+	mov edx, -1 ;counter for distance from beginning of string
 	mov ebx, 0 ;make sure ebx doesn't contain junk
 
 ;each loop iteration 'translates' 1 octa digit to 3 binary digits and appends them to the output string
 loop:
+    inc edx
     movzx eax, byte [ecx+edx] ;get current byte
-	cmp al, 10; \n is 10 in ascii, wrote 10 to remove assembler warning
-	je loop ; if '\n', ignore it
+	cmp byte eax, 0xa; \n is 10 in ascii, wrote 10 to remove assembler warning
+	je end ; if '\n', ignore it
 	cmp al, 0
 	je end
 	cmp al, 'q'
@@ -44,7 +45,6 @@ loop:
 	add ebx, '0'
 	mov [outstring+edx*3], bl  ;append ebx to output string
 	mov bl, 0
-	inc edx
 	jmp loop
 
 
